@@ -18,7 +18,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     
 async def main() -> None:
     application = ApplicationBuilder().token(BOT_TOKEN).build()
-    application.add_Handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("start", start))
     
     await application.run_polling()
     
