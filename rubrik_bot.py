@@ -30,3 +30,11 @@ if __name__ == "__main__":
         loop.run_until_complete(main())
     except RuntimeError as e:
         logging.error(f"RuntimeError: {e}")
+
+async def send_message(message):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    payload = {
+        "chat_id": CHAT_ID,  # Menggunakan chat_id dari .env
+        "text": message
+    }
+    requests.post(url, json=payload)
