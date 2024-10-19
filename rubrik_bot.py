@@ -2,25 +2,26 @@ import logging
 import requests
 import os
 from dotenv import load_dotenv
-from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram import Update, ForceReply
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+chat_id = os.getenv("CHAT_ID")
 
 logging.basicConfig(level=logging.INFO)
 
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Hai aku bot!')
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    chat_id = update.message.chat_id
+    await update.message.reply_text('Hai aku bot!')
+    logging_info(f"Received /start command from chat_id: {chat_id}")
     
-def main() -> None:
-    Update = Updater(bot_token=BOT_TOKEN)
-    dispatcher = updater.dispatcher
+async def main() -> None:
+    application = ApplicationBuilder().token(BOT_TOKEN).build()
+    application.add_Handler(CommandHandler("start", start))
     
-    dispatcher.add_Handler(CommandHandler("start", start))
-    
-    updater.start_polling()
-    updater.idle()
+    await application.run_polling()
     
 if __name__ == "__main__":
-    main()
+    import asyncio
+    asyncio.run(main())
