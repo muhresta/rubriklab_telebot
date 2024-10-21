@@ -122,4 +122,7 @@ def format_report(report):
         formatted_items.append(f"active: {active}, Canceled: {canceled}, Failure: {failure}, Scheduled: {scheduled}, Success: {success}, Total: {total}")
 
     return "\n".join(formatted_items) 
-    
+
+if __name__ == '__main__':
+    print("Bot sedang berjalan...")
+    bot.polling() 

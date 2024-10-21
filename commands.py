@@ -1,6 +1,4 @@
-import telebot
-import requests
-import datetime
+from handlers import bot, initiate_vm_selection
 
 bot.polling(none_stop=True)
 
@@ -24,9 +22,3 @@ def report_command(message):
     )
     
     bot.send_message(message.chat.id, "What do you want to?", reply_markup=keyboard)
-
-@bot.message_handler(commands="createSLA")
-def createsla_command(message):
-    keyboard.row(
-        telebot.types.InlineKeyboardButton()
-    )
